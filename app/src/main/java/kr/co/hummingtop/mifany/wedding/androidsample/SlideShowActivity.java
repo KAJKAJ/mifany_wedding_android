@@ -21,6 +21,7 @@ import common.PersonalizedInfo;
 
 public class SlideShowActivity extends ActionBarActivity {
     Animation inAnimation;
+    Animation outAnimation;
 
     FrameLayout container;
 
@@ -45,6 +46,8 @@ public class SlideShowActivity extends ActionBarActivity {
         container = (FrameLayout) findViewById(R.id.slideshow_container);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_in);
+        outAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_out);
+
         inAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -53,6 +56,32 @@ public class SlideShowActivity extends ActionBarActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+//                changeImage();
+                slideShowImageView.startAnimation(outAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        outAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(slideShowImageView != null){
+                    linearLayout.removeView(slideShowImageView);
+                    slideShowImageView = null;
+                }
+                if(linearLayout != null){
+                    container.removeView(linearLayout);
+                    linearLayout = null;
+                }
                 changeImage();
             }
 
@@ -70,16 +99,8 @@ public class SlideShowActivity extends ActionBarActivity {
 
         do{
             nextNumber = random.nextInt(imageFileNameList.length);
-        }while(nextNumber == currentNumber);
-
-        if(slideShowImageView != null){
-            linearLayout.removeView(slideShowImageView);
-            slideShowImageView = null;
-        }
-        if(linearLayout != null){
-            container.removeView(linearLayout);
-            linearLayout = null;
-        }
+        }while(currentNumber == nextNumber);
+        currentNumber = nextNumber;
 
         linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -94,7 +115,6 @@ public class SlideShowActivity extends ActionBarActivity {
         linearLayout.addView(slideShowImageView);
         container.addView(linearLayout);
 
-        currentNumber = nextNumber;
         slideShowImageView.startAnimation(inAnimation);
     }
 
