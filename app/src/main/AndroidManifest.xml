@@ -8,8 +8,20 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".PagerActivity"
+            android:label="Pager" >
+        </activity>
+        <activity
+            android:name=".GalleryActivity"
+            android:label="Gallery" >
+        </activity>
+        <activity
+            android:name=".FullImageActivity"
+            android:label="@string/title_activity_full_image" >
+        </activity>
+        <activity
+            android:name=".SlideShowActivity"
+            android:label="Slide Show" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

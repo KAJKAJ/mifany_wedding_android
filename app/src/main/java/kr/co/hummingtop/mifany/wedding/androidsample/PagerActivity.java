@@ -1,9 +1,10 @@
 package kr.co.hummingtop.mifany.wedding.androidsample;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,36 +14,19 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
+import common.MenuInfo;
+import common.PersonalizedInfo;
 
-public class MainActivity extends Activity {
+
+public class PagerActivity extends ActionBarActivity {
+    ViewPager viewPager;
+
     public class ImageViewAdapter extends PagerAdapter {
-        String[] imageList = {
-                "img_01",
-                "img_02",
-                "img_03",
-                "img_04",
-                "img_05",
-                "img_06",
-                "img_07",
-                "img_08",
-                "img_09",
-                "img_10",
-                "img_11",
-                "img_12",
-                "img_13",
-                "img_14",
-                "img_15",
-                "img_16",
-                "img_17",
-                "img_18",
-                "img_19",
-                "img_20",
-                "img_21"
-        };
+        String[] imageFileNameList = PersonalizedInfo.imageFileNameList;
 
         @Override
         public int getCount() {
-            return imageList.length;
+            return imageFileNameList.length;
         }
 
         @Override
@@ -64,7 +48,7 @@ public class MainActivity extends Activity {
             ImageView imageView = new ImageView(getApplicationContext());
             imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            int imageId = getResources().getIdentifier(imageList[position], "drawable", getPackageName());
+            int imageId = getResources().getIdentifier(imageFileNameList[position], "drawable", getPackageName());
             Picasso.with(getApplicationContext()).load(imageId).fit().centerInside().into(imageView);
 
             layout.addView(imageView);
@@ -75,16 +59,16 @@ public class MainActivity extends Activity {
 
     }
 
-    ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pager);
         init();
     }
 
-    public void init(){
+    private void init(){
+//        getSupportActionBar().hide();
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         ImageViewAdapter adapter = new ImageViewAdapter();
         viewPager.setAdapter(adapter);
@@ -92,21 +76,29 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
+        menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case MenuInfo.MENU_GALLERY:
+                Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
+//                intent.putExtra("test","hi");
+                startActivity(intent);
+                break;
+            case MenuInfo.MENU_SLIDESHOW:
+                intent = new Intent(getApplicationContext(), SlideShowActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);

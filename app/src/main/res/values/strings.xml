@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Android Sample</string>
+    <string name="app_name">Mifany</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_full_image">FullImage</string>
+    <string name="title_activity_slide_show">SlideShowActivity</string>
 </resources>
