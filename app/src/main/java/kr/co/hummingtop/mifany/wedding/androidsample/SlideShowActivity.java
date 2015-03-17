@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -29,6 +30,8 @@ public class SlideShowActivity extends ActionBarActivity {
     Animation outAnimation;
 
 //    ArrayList<Animation> textInAnimation = new ArrayList();
+//    Animation [] textInAnimation = new Animation[4];
+
     int textInAnimationCount = 4;
     Animation textInAnimation1;
     Animation textInAnimation2;
@@ -63,6 +66,8 @@ public class SlideShowActivity extends ActionBarActivity {
 
     private void init(){
         getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //music
         musicPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music_1);

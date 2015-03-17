@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -32,6 +33,7 @@ public class GalleryActivity extends ActionBarActivity {
 
     private void init(){
         getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         gridview = (GridView) findViewById(R.id.gridView);
         gridview.setAdapter(new ImageThumbnailAdapter(this));
