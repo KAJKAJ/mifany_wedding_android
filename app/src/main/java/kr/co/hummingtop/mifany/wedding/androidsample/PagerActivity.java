@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,7 @@ import common.PersonalizedInfo;
 
 public class PagerActivity extends ActionBarActivity {
     ViewPager viewPager;
+    TextView textView;
 
     public class ImageViewAdapter extends PagerAdapter {
         String[] imageFileNameList = PersonalizedInfo.imageFileNameList;
@@ -41,10 +43,11 @@ public class PagerActivity extends ActionBarActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            //container
             LinearLayout layout = new LinearLayout(getApplicationContext());
             layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            layout.setOrientation(LinearLayout.VERTICAL);
 
+            //add image
             ImageView imageView = new ImageView(getApplicationContext());
             imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -52,11 +55,18 @@ public class PagerActivity extends ActionBarActivity {
             Picasso.with(getApplicationContext()).load(imageId).fit().centerInside().into(imageView);
 
             layout.addView(imageView);
+
             container.addView(layout);
 
             return layout;
         }
 
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            textView.setText(Integer.toString(position + 1) + "/" + Integer.toString(imageFileNameList.length));
+            super.setPrimaryItem(container, position, object);
+        }
     }
 
     @Override
@@ -67,18 +77,21 @@ public class PagerActivity extends ActionBarActivity {
     }
 
     private void init(){
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         ImageViewAdapter adapter = new ImageViewAdapter();
         viewPager.setAdapter(adapter);
+
+        textView = (TextView) findViewById(R.id.textView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
+        menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
+        menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
 
         return true;
     }

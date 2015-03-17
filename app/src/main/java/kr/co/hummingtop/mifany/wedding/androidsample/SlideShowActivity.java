@@ -31,6 +31,8 @@ public class SlideShowActivity extends ActionBarActivity {
     Random random = new Random();
     int currentNumber = 0;
 
+    boolean menuOpen = false;
+
     String[] imageFileNameList = PersonalizedInfo.imageFileNameList;
 
     @Override
@@ -43,7 +45,9 @@ public class SlideShowActivity extends ActionBarActivity {
 
     private void init(){
         getSupportActionBar().hide();
+
         container = (FrameLayout) findViewById(R.id.slideshow_container);
+
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_out);
@@ -136,6 +140,7 @@ public class SlideShowActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
         menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
         return true;
