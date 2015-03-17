@@ -31,7 +31,7 @@ public class GalleryActivity extends ActionBarActivity {
     }
 
     private void init(){
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         gridview = (GridView) findViewById(R.id.gridView);
         gridview.setAdapter(new ImageThumbnailAdapter(this));
@@ -99,10 +99,12 @@ public class GalleryActivity extends ActionBarActivity {
         switch (id) {
             case MenuInfo.MENU_SLIDESHOW:
                 intent = new Intent(getApplicationContext(), SlideShowActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case MenuInfo.MENU_PAGER:
                 intent = new Intent(getApplicationContext(), PagerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             default:

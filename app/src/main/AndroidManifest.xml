@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".SlideShowActivity"
-            android:label="Slide Show" >
+            android:label="Mifany" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -74,14 +74,15 @@ public class SlideShowActivity extends ActionBarActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(slideShowImageView != null){
+                if (slideShowImageView != null) {
                     linearLayout.removeView(slideShowImageView);
                     slideShowImageView = null;
                 }
-                if(linearLayout != null){
+                if (linearLayout != null) {
                     container.removeView(linearLayout);
                     linearLayout = null;
                 }
+
                 changeImage();
             }
 
@@ -119,6 +120,21 @@ public class SlideShowActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onPause() {
+//        play = false;
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        //상태 복원 필요
+//        play = true;
+//        changeImage();
+        super.onResume();
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
@@ -134,10 +150,12 @@ public class SlideShowActivity extends ActionBarActivity {
         switch (id) {
             case MenuInfo.MENU_GALLERY:
                 intent = new Intent(getApplicationContext(), GalleryActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case MenuInfo.MENU_PAGER:
                 intent = new Intent(getApplicationContext(), PagerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             default:

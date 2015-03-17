@@ -90,11 +90,12 @@ public class PagerActivity extends ActionBarActivity {
         switch (id) {
             case MenuInfo.MENU_GALLERY:
                 Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
-//                intent.putExtra("test","hi");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case MenuInfo.MENU_SLIDESHOW:
                 intent = new Intent(getApplicationContext(), SlideShowActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             default:
