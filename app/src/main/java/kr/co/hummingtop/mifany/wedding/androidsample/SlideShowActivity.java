@@ -1,6 +1,7 @@
 package kr.co.hummingtop.mifany.wedding.androidsample;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -20,6 +21,8 @@ import common.PersonalizedInfo;
 
 
 public class SlideShowActivity extends ActionBarActivity {
+    MediaPlayer musicPlayer;
+
     Animation inAnimation;
     Animation outAnimation;
 
@@ -46,6 +49,12 @@ public class SlideShowActivity extends ActionBarActivity {
     private void init(){
         getSupportActionBar().hide();
 
+        //music
+        musicPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music_1);
+        musicPlayer.setLooping(true);
+        musicPlayer.start();
+
+        //ui
         container = (FrameLayout) findViewById(R.id.slideshow_container);
 
 
@@ -168,5 +177,11 @@ public class SlideShowActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        musicPlayer.stop();
+        super.onDestroy();
     }
 }
