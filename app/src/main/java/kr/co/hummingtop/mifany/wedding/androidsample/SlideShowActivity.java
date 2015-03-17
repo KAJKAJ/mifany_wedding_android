@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,17 +28,30 @@ public class SlideShowActivity extends ActionBarActivity {
     Animation inAnimation;
     Animation outAnimation;
 
+//    ArrayList<Animation> textInAnimation = new ArrayList();
+    int textInAnimationCount = 4;
+    Animation textInAnimation1;
+    Animation textInAnimation2;
+    Animation textInAnimation3;
+    Animation textInAnimation4;
+
+    Animation.AnimationListener textAnimationListener;
+
     FrameLayout container;
 
     LinearLayout linearLayout;
     ImageView slideShowImageView;
 
+    TextView textView;
+
     Random random = new Random();
     int currentNumber = 0;
+    int nextNumber = 0;
 
     boolean menuOpen = false;
 
     String[] imageFileNameList = PersonalizedInfo.imageFileNameList;
+    String[] textList = PersonalizedInfo.textList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +72,8 @@ public class SlideShowActivity extends ActionBarActivity {
         //ui
         container = (FrameLayout) findViewById(R.id.slideshow_container);
 
+        textView = (TextView) findViewById(R.id.textView);
+        textView.setVisibility(View.INVISIBLE);
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_in);
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.slideshow_out);
@@ -69,7 +86,7 @@ public class SlideShowActivity extends ActionBarActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                changeImage();
+                textView.setText("");
                 slideShowImageView.startAnimation(outAnimation);
             }
 
@@ -87,6 +104,7 @@ public class SlideShowActivity extends ActionBarActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                //clear image
                 if (slideShowImageView != null) {
                     linearLayout.removeView(slideShowImageView);
                     slideShowImageView = null;
@@ -96,7 +114,11 @@ public class SlideShowActivity extends ActionBarActivity {
                     linearLayout = null;
                 }
 
-                changeImage();
+                //select next number
+                selectNextNumber();
+
+                //set new text
+                changeText();
             }
 
             @Override
@@ -105,17 +127,41 @@ public class SlideShowActivity extends ActionBarActivity {
             }
         });
 
+        textAnimationListener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.setVisibility(View.INVISIBLE);
+                changeImage();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+
+        textInAnimation1 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_1);
+        textInAnimation1.setAnimationListener(textAnimationListener);
+
+        textInAnimation2 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_2);
+        textInAnimation2.setAnimationListener(textAnimationListener);
+
+        textInAnimation3 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_3);
+        textInAnimation3.setAnimationListener(textAnimationListener);
+
+        textInAnimation4 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_4);
+        textInAnimation4.setAnimationListener(textAnimationListener);
+
         changeImage();
     }
 
+
     private void changeImage(){
-        int nextNumber;
-
-        do{
-            nextNumber = random.nextInt(imageFileNameList.length);
-        }while(currentNumber == nextNumber);
-        currentNumber = nextNumber;
-
         linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -129,7 +175,39 @@ public class SlideShowActivity extends ActionBarActivity {
         linearLayout.addView(slideShowImageView);
         container.addView(linearLayout);
 
+        currentNumber = nextNumber;
+
         slideShowImageView.startAnimation(inAnimation);
+    }
+
+    private void changeText(){
+        textView.setText(textList[nextNumber]);
+        textView.setVisibility(View.VISIBLE);
+
+        int textAnimationType = random.nextInt(textInAnimationCount);
+        switch(textAnimationType+1){
+            case 1:
+                textView.startAnimation(textInAnimation1);
+                break;
+            case 2:
+                textView.startAnimation(textInAnimation2);
+                break;
+            case 3:
+                textView.startAnimation(textInAnimation3);
+                break;
+            case 4:
+                textView.startAnimation(textInAnimation4);
+                break;
+            default:
+                textView.startAnimation(textInAnimation1);
+                break;
+        }
+    }
+
+    private void selectNextNumber(){
+        do{
+            nextNumber = random.nextInt(imageFileNameList.length);
+        }while(currentNumber == nextNumber);
     }
 
     @Override

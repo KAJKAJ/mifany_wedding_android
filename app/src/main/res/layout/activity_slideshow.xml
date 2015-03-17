@@ -6,10 +6,13 @@
     android:background="#ff000000"
     android:id="@+id/slideshow_container">
 
-    <ImageView
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/slideshow_img_1"
-        android:layout_gravity="center|bottom"
-        />
+        android:text="Mifany"
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:textColor="#ffffffff"
+        android:textSize="70dp"
+        android:textStyle="bold" />
 </FrameLayout>
