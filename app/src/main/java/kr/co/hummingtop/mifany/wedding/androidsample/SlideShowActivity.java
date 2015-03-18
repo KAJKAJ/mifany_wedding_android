@@ -30,13 +30,7 @@ public class SlideShowActivity extends ActionBarActivity {
     Animation outAnimation;
 
 //    ArrayList<Animation> textInAnimation = new ArrayList();
-//    Animation [] textInAnimation = new Animation[4];
-
-    int textInAnimationCount = 4;
-    Animation textInAnimation1;
-    Animation textInAnimation2;
-    Animation textInAnimation3;
-    Animation textInAnimation4;
+    Animation [] textInAnimation = new Animation[4];
 
     Animation.AnimationListener textAnimationListener;
 
@@ -150,17 +144,11 @@ public class SlideShowActivity extends ActionBarActivity {
             }
         };
 
-        textInAnimation1 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_1);
-        textInAnimation1.setAnimationListener(textAnimationListener);
-
-        textInAnimation2 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_2);
-        textInAnimation2.setAnimationListener(textAnimationListener);
-
-        textInAnimation3 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_3);
-        textInAnimation3.setAnimationListener(textAnimationListener);
-
-        textInAnimation4 = AnimationUtils.loadAnimation(this, R.anim.slideshow_text_in_4);
-        textInAnimation4.setAnimationListener(textAnimationListener);
+        for(int i=0; i<textInAnimation.length; i++){
+            int resourceId = getResources().getIdentifier("slideshow_text_in_"+Integer.toString(i+1), "anim", getPackageName());
+            textInAnimation[i] = AnimationUtils.loadAnimation(this, resourceId);
+            textInAnimation[i].setAnimationListener(textAnimationListener);
+        }
 
         changeImage();
     }
@@ -189,24 +177,8 @@ public class SlideShowActivity extends ActionBarActivity {
         textView.setText(textList[nextNumber]);
         textView.setVisibility(View.VISIBLE);
 
-        int textAnimationType = random.nextInt(textInAnimationCount);
-        switch(textAnimationType+1){
-            case 1:
-                textView.startAnimation(textInAnimation1);
-                break;
-            case 2:
-                textView.startAnimation(textInAnimation2);
-                break;
-            case 3:
-                textView.startAnimation(textInAnimation3);
-                break;
-            case 4:
-                textView.startAnimation(textInAnimation4);
-                break;
-            default:
-                textView.startAnimation(textInAnimation1);
-                break;
-        }
+        int textAnimationType = random.nextInt(textInAnimation.length);
+        textView.startAnimation(textInAnimation[textAnimationType]);
     }
 
     private void selectNextNumber(){
