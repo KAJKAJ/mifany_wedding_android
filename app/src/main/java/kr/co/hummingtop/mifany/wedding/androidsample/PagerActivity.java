@@ -10,14 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import common.MenuInfo;
 import common.PersonalizedInfo;
+import uk.co.senab.photoview.PhotoView;
 
 
 public class PagerActivity extends ActionBarActivity {
@@ -44,22 +43,33 @@ public class PagerActivity extends ActionBarActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            //container
-            LinearLayout layout = new LinearLayout(getApplicationContext());
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
-            //add image
-            ImageView imageView = new ImageView(getApplicationContext());
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//            //container
+//            LinearLayout layout = new LinearLayout(getApplicationContext());
+//            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//
+//            //add image
+//            ImageView imageView = new ImageView(getApplicationContext());
+//            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//
+//            int imageId = getResources().getIdentifier(imageFileNameList[position], "drawable", getPackageName());
+//            Picasso.with(getApplicationContext()).load(imageId).fit().centerInside().into(imageView);
+//
+//            layout.addView(imageView);
+//
+//            container.addView(layout);
+//
+//            return layout;
+            
+            PhotoView photoView = new PhotoView(container.getContext());
+            photoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             int imageId = getResources().getIdentifier(imageFileNameList[position], "drawable", getPackageName());
-            Picasso.with(getApplicationContext()).load(imageId).fit().centerInside().into(imageView);
+            Picasso.with(getApplicationContext()).load(imageId).fit().centerInside().into(photoView);
 
-            layout.addView(imageView);
+            // Now just add PhotoView to ViewPager and return it
+            container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-            container.addView(layout);
-
-            return layout;
+            return photoView;
         }
 
 

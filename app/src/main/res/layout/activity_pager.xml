@@ -24,7 +24,8 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
