@@ -59,7 +59,7 @@ public class PagerActivity extends ActionBarActivity {
 //            container.addView(layout);
 //
 //            return layout;
-            
+
             PhotoView photoView = new PhotoView(container.getContext());
             photoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
