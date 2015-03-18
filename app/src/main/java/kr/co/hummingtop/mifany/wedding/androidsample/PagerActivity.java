@@ -94,6 +94,7 @@ public class PagerActivity extends ActionBarActivity {
         menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
         menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
+        menu.add(0, MenuInfo.MENU_VIDEO, 0, MenuInfo.MENU_VIDEO_TEXT);
 
         return true;
     }
@@ -110,6 +111,11 @@ public class PagerActivity extends ActionBarActivity {
                 break;
             case MenuInfo.MENU_SLIDESHOW:
                 intent = new Intent(getApplicationContext(), SlideShowActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case MenuInfo.MENU_VIDEO:
+                intent = new Intent(getApplicationContext(), MovieActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;

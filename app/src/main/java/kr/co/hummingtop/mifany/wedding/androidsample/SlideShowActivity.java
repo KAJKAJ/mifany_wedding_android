@@ -64,9 +64,7 @@ public class SlideShowActivity extends ActionBarActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //music
-        musicPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music_1);
-        musicPlayer.setLooping(true);
-        musicPlayer.start();
+        startMusic();
 
         //ui
         container = (FrameLayout) findViewById(R.id.slideshow_container);
@@ -187,9 +185,17 @@ public class SlideShowActivity extends ActionBarActivity {
         }while(currentNumber == nextNumber);
     }
 
+    private void startMusic(){
+        musicPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music_1);
+        musicPlayer.setLooping(true);
+        musicPlayer.start();
+    }
+
     @Override
     protected void onPause() {
 //        play = false;
+        musicPlayer.stop();
+        musicPlayer.release();
         super.onPause();
     }
 
@@ -198,6 +204,7 @@ public class SlideShowActivity extends ActionBarActivity {
         //상태 복원 필요
 //        play = true;
 //        changeImage();
+        startMusic();
         super.onResume();
     }
 
@@ -207,6 +214,7 @@ public class SlideShowActivity extends ActionBarActivity {
         menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
         menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
+        menu.add(0, MenuInfo.MENU_VIDEO, 0, MenuInfo.MENU_VIDEO_TEXT);
         return true;
     }
 
@@ -227,6 +235,11 @@ public class SlideShowActivity extends ActionBarActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
+            case MenuInfo.MENU_VIDEO:
+                intent = new Intent(getApplicationContext(), MovieActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -236,7 +249,6 @@ public class SlideShowActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        musicPlayer.stop();
         super.onDestroy();
     }
 }

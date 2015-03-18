@@ -5,4 +5,8 @@
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_full_image">FullImage</string>
     <string name="title_activity_slide_show">SlideShowActivity</string>
+
+    <string name="title_activity_movie">MovieActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

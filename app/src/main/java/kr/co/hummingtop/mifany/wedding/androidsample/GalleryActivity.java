@@ -90,6 +90,7 @@ public class GalleryActivity extends ActionBarActivity {
         menu.add(0, MenuInfo.MENU_SLIDESHOW, 0, MenuInfo.MENU_SLIDESHOW_TEXT);
         menu.add(0, MenuInfo.MENU_GALLERY, 0, MenuInfo.MENU_GALLERY_TEXT);
         menu.add(0, MenuInfo.MENU_PAGER, 0, MenuInfo.MENU_PAGER_TEXT);
+        menu.add(0, MenuInfo.MENU_VIDEO, 0, MenuInfo.MENU_VIDEO_TEXT);
         return true;
     }
 
@@ -107,6 +108,11 @@ public class GalleryActivity extends ActionBarActivity {
                 break;
             case MenuInfo.MENU_PAGER:
                 intent = new Intent(getApplicationContext(), PagerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case MenuInfo.MENU_VIDEO:
+                intent = new Intent(getApplicationContext(), MovieActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
