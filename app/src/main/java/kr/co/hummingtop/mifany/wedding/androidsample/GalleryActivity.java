@@ -68,14 +68,27 @@ public class GalleryActivity extends ActionBarActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+//            SquaredImageView imageView = (SquaredImageView) convertView;
+//            if (imageView == null) {
+//                imageView = new SquaredImageView(context);
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            } else {
+//                imageView = (SquaredImageView) convertView;
+//            }
+//
+//            int imageId = getResources().getIdentifier(imageFileNameList[position], "drawable", getPackageName());
+//            Picasso.with(context).load(imageId).fit().into(imageView);
+//
+//            return imageView;
             SquaredImageView imageView = (SquaredImageView) convertView;
             if (imageView == null) {
                 imageView = new SquaredImageView(context);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            } else {
+                imageView = (SquaredImageView) convertView;
             }
 
             int imageId = getResources().getIdentifier(imageFileNameList[position], "drawable", getPackageName());
-//            Picasso.with(context).load(imageId).placeholder(R.drawable.img_placeholder_1).fit().into(imageView);
             Picasso.with(context).load(imageId).fit().into(imageView);
 
             return imageView;
@@ -111,11 +124,7 @@ public class GalleryActivity extends ActionBarActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
-            case MenuInfo.MENU_VIDEO:
-                intent = new Intent(getApplicationContext(), MovieActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                break;
+
             default:
                 break;
         }
