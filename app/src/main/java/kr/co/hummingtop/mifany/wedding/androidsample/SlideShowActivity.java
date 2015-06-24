@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
+import common.FloatingMenu;
 import common.MenuInfo;
 import common.PersonalizedInfo;
 
@@ -62,6 +63,9 @@ public class SlideShowActivity extends ActionBarActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //floating menu
+        FloatingMenu floatingMenu = new FloatingMenu(this);
 
         //music
         startMusic();

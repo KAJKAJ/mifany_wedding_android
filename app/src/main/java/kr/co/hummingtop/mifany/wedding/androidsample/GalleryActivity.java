@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import common.FloatingMenu;
 import common.MenuInfo;
 import common.PersonalizedInfo;
 import common.SquaredImageView;
@@ -34,6 +35,9 @@ public class GalleryActivity extends ActionBarActivity {
     private void init(){
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //floating menu
+        FloatingMenu floatingMenu = new FloatingMenu(this);
 
         gridview = (GridView) findViewById(R.id.gridView);
         gridview.setAdapter(new ImageThumbnailAdapter(this));

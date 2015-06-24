@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import common.FloatingMenu;
 import common.MenuInfo;
 import kr.co.hummingtop.mifany.wedding.androidsample.util.SystemUiHider;
 
@@ -129,6 +130,9 @@ public class MovieActivity extends Activity {
     private void init(){
         getActionBar().hide();
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //floating menu
+        FloatingMenu floatingMenu = new FloatingMenu(this);
 
         VideoView videoView = (VideoView) findViewById(R.id.videoView);
         String videoName = "video_1";

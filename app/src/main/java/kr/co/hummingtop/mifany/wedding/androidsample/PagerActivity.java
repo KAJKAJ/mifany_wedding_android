@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import common.FloatingMenu;
 import common.MenuInfo;
 import common.PersonalizedInfo;
 import uk.co.senab.photoview.PhotoView;
@@ -90,6 +91,9 @@ public class PagerActivity extends ActionBarActivity {
     private void init(){
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //floating menu
+        FloatingMenu floatingMenu = new FloatingMenu(this);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         ImageViewAdapter adapter = new ImageViewAdapter();
